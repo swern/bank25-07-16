@@ -1,27 +1,20 @@
+
 var Bank = require('./bank/bank.js');
-var BankView = require('./bank/bankView.js')
 var Account = require('./bank/account.js');
 var sampleAccounts = require('./sample.json');
-
-var createItemForAccount = function(account){
- var accountListItem = document.createElement('li');
- accountListItem.innerText = account.owner + ": £" + account.amount;
- return accountListItem;
-}
-
-var populateAccountList = function(listElement, accounts){
- for(account of accounts){
-   listElement.appendChild(createItemForAccount(account));
- }
-}
+var BankView = require('./bank/bankView.js');
 
 window.onload = function(){
  var bank = new Bank();
- var bankView = new BankView(bank);
+ var bankView = new BankView();
+ 
  for(account of sampleAccounts){
    bank.addAccount(new Account(account));
  }
-}
+ bankView.displayTotal(bank);
+ bankView.displayAccounts(bank);
+ bankView.addInterest(bank);
+};
 //  var button = document.getElementById('pay-interest');
 //  button.onclick = function(){
 //    bank.addInterest(10);
